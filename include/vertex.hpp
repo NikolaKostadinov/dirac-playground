@@ -10,6 +10,9 @@ class Vertex
 {
     public:
 
+        Vertex();
+        //~Vertex();
+
         Vertex(T  _value_  , unsigned int _x_, unsigned int _y_, Window* _toWindow_);
         Vertex(T* _toValue_, unsigned int _x_, unsigned int _y_, Window* _toWindow_);
         

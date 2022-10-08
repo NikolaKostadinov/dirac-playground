@@ -1,6 +1,15 @@
 #include "../include/vertex.hpp"
 
 template <class T>
+Vertex<T>::Vertex()
+{
+    _toValue  = new T;
+    _xIndex   = 0U   ;
+    _yIndex   = 0U   ;
+    _toWindow = NULL ;
+}
+
+template <class T>
 Vertex<T>::Vertex(T _value_, unsigned int _x_, unsigned int _y_, Window* _toWindow_)
 {
     _toValue  = &_value_   ;
@@ -32,7 +41,14 @@ void Vertex<T>::render()
         255
     );
 
-    //SDL_RenderDrawPoint(renderer, i, j);
+    for (int i = 0; i < SIZE_X; i++)
+        for (int j = 0; j < SIZE_Y; j++)
+        {
+            int x = i + xCoord();
+            int y = j + yCoord();
+
+            SDL_RenderDrawPoint(renderer, x, y);
+        }
 }
 
 template <class T>
@@ -63,6 +79,13 @@ int Vertex<T>::yCoord()
     int delta  = height / SIZE_Y    ;
     
     return (int) _yIndex * delta    ;
+}
+
+template <class T>
+Color toColor(T _value_)
+{
+    float activation  = (float) _value_ * 255;
+    return Color(activation, activation, activation);
 }
 
 template class Vertex<float>;
