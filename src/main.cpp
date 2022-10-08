@@ -24,7 +24,7 @@ int main(int argc, char* args[])
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
-            values[i][j] = (i * i + j * j) / 10;
+            values[i][j] = i * i + j * j;
             vertices[i][j] = Vertex<float>(&values[i][j], i, j, &window);
         }
 
@@ -32,9 +32,8 @@ int main(int argc, char* args[])
     while (window.isRunning)
     {
         while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT) window.cleanUp();
-        }
+            if (event.type == SDL_QUIT)
+                window.cleanUp();
 
         window.clear();
         

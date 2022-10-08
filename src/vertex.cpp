@@ -89,8 +89,13 @@ int Vertex<T>::yCoord()
 template <class T>
 Color toColor(T _value_)
 {
-    unsigned char red = _value_;
-    return Color(red, 0, 0);
+    Color color = Color(0, 1, 0);
+
+    color.red   *= _value_;
+    color.green *= _value_;
+    color.blue  *= _value_;
+
+    return color;
 }
 
 template class Vertex<float>;
