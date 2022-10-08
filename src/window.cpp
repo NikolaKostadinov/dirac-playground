@@ -4,12 +4,15 @@ Window::Window(const char* _toTitle_, int _width_, int _height_) : _window(NULL)
 {
     isRunning = true;
 
+    _width  = _width_ ;
+    _height = _height_;
+
     _window = SDL_CreateWindow(
         _toTitle_,
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        _width_,
-        _height_,
+        _width,
+        _height,
         SDL_WINDOW_SHOWN
     );
 
@@ -43,18 +46,17 @@ void Window::clear()
     SDL_RenderClear(_renderer);
 }
 
-void Window::render(SDL_Texture* _toTexture_)
+void Window::draw()
 {
-    SDL_RenderCopy(_renderer, _toTexture_, NULL, NULL);
-}
+    int deltaX = _width  / SIZE_X;
+    int deltaY = _height / SIZE_Y;
 
-SDL_Texture* Window::loadTexture(const char* _path_)
-{
-    SDL_Texture* texture = NULL;
-    texture = IMG_LoadTexture(_renderer, _path_);
-
-    if (texture == NULL)
-        std::cout << "IMG_LOAD ERROR: " << SDL_GetError() << std::endl;
-
-    return texture;
+    for (int i = 0; i < _width; i++)
+        for (int j = 0; j < _height; j++)
+        {
+            if      (i % deltaX == 0) SDL_SetRenderDrawColor(_renderer, 255, 0,   0, 255);
+            else if (j % deltaY == 0) SDL_SetRenderDrawColor(_renderer, 255, 0,   0, 255);
+            else                      SDL_SetRenderDrawColor(_renderer, 255, 255, 0, 255);
+            SDL_RenderDrawPoint(_renderer, i, j);
+        }
 }
