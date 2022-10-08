@@ -18,14 +18,21 @@ int main(int argc, char* args[])
 
     Window window = Window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    float         values  [SIZE_X][SIZE_Y];
-    Vertex<float> vertices[SIZE_X][SIZE_Y];
+    Base      x     = Base(-1, SIZE_X, 1); 
+    Base      y     = Base(-1, SIZE_Y, 1);
+    Basis2    basis = Basis2(x, y)       ;
+    WaveFunc2 psi   = WaveFunc2(basis)   ;
 
+    Complex         probAmps[SIZE_X][SIZE_Y];
+    Vertex<Complex> vertices[SIZE_X][SIZE_Y];
+
+    psi.setValues(&probAmps[0][0]);
+    
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
-            values[i][j] = i * i + j * j;
-            vertices[i][j] = Vertex<float>(&values[i][j], i, j, &window);
+            probAmps[i][j] = Complex(cos(i), sin(j));
+            vertices[i][j] = Vertex<Complex>(&probAmps[i][j], i, j, &window);
         }
 
     SDL_Event event;
@@ -37,9 +44,10 @@ int main(int argc, char* args[])
 
         window.clear();
         
+        psi.evolve(1);
         for (int i = 0; i < SIZE_X; i++)
             for (int j = 0; j < SIZE_Y; j++)
-                vertices[i][j].render();
+                    vertices[i][j].render();
 
         window.display();
     }

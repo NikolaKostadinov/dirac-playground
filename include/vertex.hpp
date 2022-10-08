@@ -3,7 +3,10 @@
 #include "playgroundparams.h"
 #include "color.h"
 #include "window.hpp"
+
+#include "../include/Dirac/complex.hpp"
 #include "../include/SDL2/SDL.h"
+#include <type_traits>
 
 template <class T>
 class Vertex
@@ -33,5 +36,5 @@ class Vertex
         Window*      _toWindow;
 };
 
-template <class T>
-Color toColor(T _value_);
+Color toColor(float _value_);
+Color toColor(Complex _value_);

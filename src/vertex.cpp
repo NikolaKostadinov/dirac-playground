@@ -31,7 +31,7 @@ template <class T>
 void Vertex<T>::render()
 {
     SDL_Renderer* renderer = _toWindow->renderer();
-    Color         color    = toColor<T>(*_toValue);
+    Color         color    = toColor(*_toValue)   ;
     
     SDL_Rect block;
     block.x = xCoord();
@@ -86,16 +86,15 @@ int Vertex<T>::yCoord()
     return (int) _yIndex * dy();
 }
 
-template <class T>
-Color toColor(T _value_)
+Color toColor(float _value_)
 {
-    Color color = Color(0, 1, 0);
-
-    color.red   *= _value_;
-    color.green *= _value_;
-    color.blue  *= _value_;
-
-    return color;
+    return Color(_value_, 0, 0);
 }
 
-template class Vertex<float>;
+Color toColor(Complex _value_)
+{
+    return Color(314000 * _value_.conjSq(), 0, 0);
+}
+
+template class Vertex< float >;
+template class Vertex<Complex>;
