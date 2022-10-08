@@ -46,21 +46,6 @@ void Window::clear()
     SDL_RenderClear(_renderer);
 }
 
-/*void Window::draw()
-{
-    int deltaX = _width  / SIZE_X;
-    int deltaY = _height / SIZE_Y;
-
-    for (int i = 0; i < _width; i++)
-        for (int j = 0; j < _height; j++)
-        {
-            if      (i % deltaX == 0) SDL_SetRenderDrawColor(_renderer, 55, 0, 55, 255);
-            else if (j % deltaY == 0) SDL_SetRenderDrawColor(_renderer, 55, 0, 55, 255);
-            else                      SDL_SetRenderDrawColor(_renderer,  0, 0,  0, 255);
-            SDL_RenderDrawPoint(_renderer, i, j);
-        }
-}*/
-
 int Window::width()
 {
     return _width;

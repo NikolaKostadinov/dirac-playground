@@ -31,7 +31,13 @@ template <class T>
 void Vertex<T>::render()
 {
     SDL_Renderer* renderer = _toWindow->renderer();
-    Color         color    = toColor(*_toValue)   ;
+    Color         color    = toColor<T>(*_toValue);
+    
+    SDL_Rect block;
+    block.x = xCoord();
+    block.y = yCoord();
+    block.w = dx();
+    block.h = dy();
 
     SDL_SetRenderDrawColor(
         renderer,
@@ -41,14 +47,7 @@ void Vertex<T>::render()
         255
     );
 
-    for (int i = 0; i < SIZE_X; i++)
-        for (int j = 0; j < SIZE_Y; j++)
-        {
-            int x = i + xCoord();
-            int y = j + yCoord();
-
-            SDL_RenderDrawPoint(renderer, x, y);
-        }
+    SDL_RenderFillRect(renderer, &block);
 }
 
 template <class T>
@@ -64,28 +63,34 @@ unsigned int Vertex<T>::yIndex()
 }
 
 template <class T>
+int Vertex<T>::dx()
+{
+    return _toWindow->width() / SIZE_X;
+}
+
+template <class T>
+int Vertex<T>::dy()
+{
+    return _toWindow->height() / SIZE_Y;
+}
+
+template <class T>
 int Vertex<T>::xCoord()
 {
-    int width = _toWindow->width();
-    int delta = width / SIZE_X    ;
-    
-    return (int) _xIndex * delta  ;
+    return (int) _xIndex * dx();
 }
 
 template <class T>
 int Vertex<T>::yCoord()
 {
-    int height = _toWindow->height();
-    int delta  = height / SIZE_Y    ;
-    
-    return (int) _yIndex * delta    ;
+    return (int) _yIndex * dy();
 }
 
 template <class T>
 Color toColor(T _value_)
 {
-    float activation  = (float) _value_ * 255;
-    return Color(activation, activation, activation);
+    unsigned char red = _value_;
+    return Color(red, 0, 0);
 }
 
 template class Vertex<float>;

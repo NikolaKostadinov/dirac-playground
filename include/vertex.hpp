@@ -20,6 +20,8 @@ class Vertex
 
         unsigned int xIndex();
         unsigned int yIndex();
+        signed   int dx    ();
+        signed   int dy    ();
         signed   int xCoord();
         signed   int yCoord();
 
