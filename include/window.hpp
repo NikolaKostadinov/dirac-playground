@@ -16,7 +16,8 @@ class Window
         void cleanUp();
         void display();
         void clear  ();
-        void draw   ();
+        
+        SDL_Renderer* renderer();
 
     private:
 

@@ -24,7 +24,6 @@ int main(int argc, char* args[])
             if (event.type == SDL_QUIT) window.cleanUp();
         }
         
-        window.draw();
         window.display();
     }
 
