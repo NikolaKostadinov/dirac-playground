@@ -1,5 +1,6 @@
 #pragma once
 
+#include "playgroundparams.h"
 #include "../include/SDL2/SDL.h"
 #include "../include/SDL2/SDL_image.h"
 #include <iostream>
@@ -15,13 +16,12 @@ class Window
         void cleanUp();
         void display();
         void clear  ();
-
-        void render(SDL_Texture* _toTexture_);
-
-        SDL_Texture* loadTexture(const char* _path_);
+        void draw   ();
 
     private:
 
+        int           _width   ;
+        int           _height  ;
         SDL_Window*   _window  ;
         SDL_Renderer* _renderer;
 };

@@ -16,10 +16,7 @@ int main(int argc, char* args[])
 
     Window window = Window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    SDL_Texture* texture = window.loadTexture("../res/dirac-engine.png");
-
     SDL_Event event;
-
     while (window.isRunning)
     {
         while (SDL_PollEvent(&event))
@@ -27,8 +24,7 @@ int main(int argc, char* args[])
             if (event.type == SDL_QUIT) window.cleanUp();
         }
         
-        window.clear();
-        window.render(texture);
+        window.draw();
         window.display();
     }
 
