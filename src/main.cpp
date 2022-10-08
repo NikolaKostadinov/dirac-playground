@@ -2,20 +2,22 @@
 
 #include "../include/Dirac/dirac.h"
 #include "../include/SDL2/SDL.h"
+#include "../include/SDL2/SDL_image.h"
 #include <iostream>
 
+#include "../include/playgroundparams.h"
+#include "../include/playgroundtest.h"
 #include "../include/window.hpp"
-
-#define WINDOW_TITLE    "Hello There!"
-#define WINDOW_WIDTH    640
-#define WINDOW_HEIGHT   480
 
 int main(int argc, char* args[])
 {
-    if (SDL_Init(SDL_INIT_VIDEO) > 0)
-        std::cout << "SDL_INIT_VIDEO ERROR: " << SDL_GetError() << std::endl;
+    playground::testVideo();
+    playground::testImage();
 
     Window window = Window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    SDL_Texture* texture = window.loadTexture("../res/dirac-engine.png");
+
     SDL_Event event;
 
     while (window.isRunning)
@@ -24,6 +26,10 @@ int main(int argc, char* args[])
         {
             if (event.type == SDL_QUIT) window.cleanUp();
         }
+        
+        window.clear();
+        window.render(texture);
+        window.display();
     }
 
     SDL_Quit();
