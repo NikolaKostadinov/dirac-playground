@@ -61,6 +61,16 @@ void Window::clear()
         }
 }*/
 
+int Window::width()
+{
+    return _width;
+}
+
+int Window::height()
+{
+    return _height;
+}
+
 SDL_Renderer* Window::renderer()
 {
     return _renderer;

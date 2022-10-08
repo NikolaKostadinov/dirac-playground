@@ -17,6 +17,8 @@ class Window
         void display();
         void clear  ();
         
+        int           width()   ;
+        int           height()  ;
         SDL_Renderer* renderer();
 
     private:
