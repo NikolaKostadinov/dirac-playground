@@ -1,40 +1,41 @@
 #pragma once
 
 #include "playgroundparams.h"
-#include "color.h"
 #include "window.hpp"
 
-#include "../include/Dirac/complex.hpp"
+#include "../include/Dirac/WaveFunc2.hpp"
 #include "../include/SDL2/SDL.h"
 #include <type_traits>
 
-template <class T>
 class Vertex
 {
     public:
 
         Vertex();
-        //~Vertex();
+        virtual ~Vertex();
 
-        Vertex(T  _value_  , unsigned int _x_, unsigned int _y_, Window* _toWindow_);
-        Vertex(T* _toValue_, unsigned int _x_, unsigned int _y_, Window* _toWindow_);
+        Vertex(
+            uint32_t   _x_         ,
+            uint32_t   _y_         ,
+            WaveFunc2* _toWaveFunc_,
+            Window*    _toWindow_
+        );
         
         void render();
 
-        unsigned int xIndex();
-        unsigned int yIndex();
-        signed   int dx    ();
-        signed   int dy    ();
-        signed   int xCoord();
-        signed   int yCoord();
+        uint32_t xIndex();
+        uint32_t yIndex();
+        int      dx    ();
+        int      dy    ();
+        int      xCoord();
+        int      yCoord();
+        Complex  value ();
 
     private:
 
-        unsigned int _xIndex  ;
-        unsigned int _yIndex  ;
-        T*           _toValue ;
-        Window*      _toWindow;
+        uint32_t   _xIndex    ;
+        uint32_t   _yIndex    ;
+        WaveFunc2* _toWaveFunc;
+        Window*    _toWindow  ;
+        float      _maxProb   ;
 };
-
-Color toColor(float _value_);
-Color toColor(Complex _value_);
