@@ -31,7 +31,7 @@ int main(int argc, char* args[])
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
-            probAmps[i][j] = Complex(cos(i), sin(j));
+            probAmps[i][j] = Complex(cos(i * 4), sin(j * 4));
             vertices[i][j] = Vertex<Complex>(&probAmps[i][j], i, j, &window);
         }
 
@@ -44,7 +44,7 @@ int main(int argc, char* args[])
 
         window.clear();
         
-        psi.evolve(1);
+        psi.evolve(4);
         for (int i = 0; i < SIZE_X; i++)
             for (int j = 0; j < SIZE_Y; j++)
                     vertices[i][j].render();

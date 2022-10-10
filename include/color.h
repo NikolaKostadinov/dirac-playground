@@ -2,14 +2,14 @@
 
 struct Color
 {
-    unsigned char red  ;
-    unsigned char green;
-    unsigned char blue ;
+    uint8_t red  ;
+    uint8_t green;
+    uint8_t blue ;
 
     Color(
-        unsigned char _red_,
-        unsigned char _green_,
-        unsigned char _blue_
+        uint8_t _red_  ,
+        uint8_t _green_,
+        uint8_t _blue_
     )
     {
         red   = _red_  ;
