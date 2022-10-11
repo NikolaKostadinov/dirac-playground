@@ -5,7 +5,6 @@
 
 #include "../include/Dirac/WaveFunc2.hpp"
 #include "../include/SDL2/SDL.h"
-#include <type_traits>
 
 class Vertex
 {
@@ -25,11 +24,11 @@ class Vertex
 
         uint32_t xIndex();
         uint32_t yIndex();
+        Complex  value ();
         int      dx    ();
         int      dy    ();
         int      xCoord();
         int      yCoord();
-        Complex  value ();
 
     private:
 

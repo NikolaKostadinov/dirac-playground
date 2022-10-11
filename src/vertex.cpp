@@ -2,8 +2,8 @@
 
 Vertex::Vertex()
 {
-    _xIndex     = 0U           ;
-    _yIndex     = 0U           ;
+    _xIndex     = 0u           ;
+    _yIndex     = 0u           ;
     _toWaveFunc = new WaveFunc2;
     _toWindow   = NULL         ;
     _maxProb    = 0.0F         ;
@@ -42,7 +42,7 @@ void Vertex::render()
     block->h        = dy()        ;
 
     float   prob  = value().conjSq();
-    uint8_t green = 314159 * prob;
+    uint8_t green = 0x4cb2f * prob;
 
     SDL_SetRenderDrawColor(renderer, 0, green, 0, 255);
     SDL_RenderFillRect(renderer, block);
@@ -62,22 +62,22 @@ uint32_t Vertex::yIndex()
 
 int Vertex::dx()
 {
-    return _toWindow->width() / SIZE_X;
+    return SIM_WIDTH / SIZE_X;
 }
 
 int Vertex::dy()
 {
-    return _toWindow->height() / SIZE_Y;
+    return SIM_HEIGHT / SIZE_Y;
 }
 
 int Vertex::xCoord()
 {
-    return (int) _xIndex * dx();
+    return (int) _xIndex * dx() + SIM_XPOS;
 }
 
 int Vertex::yCoord()
 {
-    return (int) _yIndex * dy();
+    return (int) _yIndex * dy() + SIM_YPOS;
 }
 
 Complex Vertex::value()

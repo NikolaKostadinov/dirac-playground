@@ -27,6 +27,7 @@ int main(int argc, char* args[])
     Vertex    vertices[SIZE_X][SIZE_Y]    ;
 
     psi.setValues(&probAmps[0][0]);
+    psi.normalize();
     
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
@@ -34,7 +35,7 @@ int main(int argc, char* args[])
             float x = xBase.x(i);
             float y = yBase.x(j);
 
-            probAmps[i][j] = Complex(exp(10 * (- x * x - y * y))) * cis(100 * x + 150 * y);
+            probAmps[i][j] = Complex(sqrt(x*x + y*y));
             vertices[i][j] = Vertex(i, j, &psi, &window);
         }
 
