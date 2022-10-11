@@ -10,6 +10,7 @@
 #include "../include/playgroundtest.h"
 #include "../include/window.hpp"
 #include "../include/vertex.hpp"
+#include "../include/dirac_panel.hpp"
 
 int main(int argc, char* args[])
 {
@@ -28,7 +29,9 @@ int main(int argc, char* args[])
 
     psi.setValues(&probAmps[0][0]);
     psi.normalize();
-    
+
+    DiracPanel dirac = DiracPanel(&vertices[0][0], &psi, &window);
+
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
@@ -36,7 +39,7 @@ int main(int argc, char* args[])
             float y = yBase.x(j);
 
             probAmps[i][j] = Complex(sqrt(x*x + y*y));
-            vertices[i][j] = Vertex(i, j, &psi, &window);
+            vertices[i][j] = Vertex (i, j, &dirac);
         }
 
     SDL_Event event;
@@ -46,12 +49,10 @@ int main(int argc, char* args[])
             if (event.type == SDL_QUIT)
                 window.cleanUp();
 
-        window.clear();
-        
-        psi.evolve(4);
-        for (int i = 0; i < SIZE_X; i++)
-            for (int j = 0; j < SIZE_Y; j++)
-                vertices[i][j].render();
+        window.clear()  ;
+          
+        psi.evolve(4)   ;
+        dirac.render()  ;
 
         window.display();
     }

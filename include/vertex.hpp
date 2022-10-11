@@ -1,9 +1,9 @@
 #pragma once
 
 #include "playgroundparams.h"
-#include "window.hpp"
+#include "dirac_panel.hpp"
 
-#include "../include/Dirac/WaveFunc2.hpp"
+#include "../include/Dirac/wavefunc2.hpp"
 #include "../include/SDL2/SDL.h"
 
 class Vertex
@@ -11,13 +11,12 @@ class Vertex
     public:
 
         Vertex();
-        virtual ~Vertex();
+        ~Vertex();
 
         Vertex(
-            uint32_t   _x_         ,
-            uint32_t   _y_         ,
-            WaveFunc2* _toWaveFunc_,
-            Window*    _toWindow_
+            uint32_t    _x_           ,
+            uint32_t    _y_           ,
+            DiracPanel* _toDiracPanel_
         );
         
         void render();
@@ -32,9 +31,7 @@ class Vertex
 
     private:
 
-        uint32_t   _xIndex    ;
-        uint32_t   _yIndex    ;
-        WaveFunc2* _toWaveFunc;
-        Window*    _toWindow  ;
-        float      _maxProb   ;
+        uint32_t    _xIndex      ;
+        uint32_t    _yIndex      ;
+        DiracPanel* _toDiracPanel;
 };
