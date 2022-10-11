@@ -34,7 +34,7 @@ int main(int argc, char* args[])
             float x = xBase.x(i);
             float y = yBase.x(j);
 
-            probAmps[i][j] = Complex(exp(10 * (- x * x - y * y))) * cis(x + y);
+            probAmps[i][j] = Complex(exp(10 * (- x * x - y * y))) * cis(100 * x + 150 * y);
             vertices[i][j] = Vertex(i, j, &psi, &window);
         }
 
