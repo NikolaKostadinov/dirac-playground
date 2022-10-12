@@ -6,6 +6,8 @@
 #include "../include/Dirac/wavefunc2.hpp"
 #include "../include/SDL2/SDL.h"
 
+class DiracPanel;
+
 class Vertex
 {
     public:

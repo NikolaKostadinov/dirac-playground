@@ -5,6 +5,8 @@
 
 #include "../include/Dirac/wavefunc2.hpp"
 
+class Vertex;
+
 class DiracPanel
 {
     friend class Vertex;
