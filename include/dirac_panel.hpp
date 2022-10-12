@@ -1,11 +1,18 @@
 #pragma once
 
-#include "vertex.hpp"
 #include "window.hpp"
 
 #include "../include/Dirac/wavefunc2.hpp"
 
-class Vertex;
+class Vertex
+{
+    public:
+
+        void render();
+
+        uint32_t xIndex();
+        uint32_t yIndex();
+};
 
 class DiracPanel
 {

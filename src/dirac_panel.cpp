@@ -27,8 +27,8 @@ DiracPanel::DiracPanel(Vertex* _toOriginVertex_, WaveFunc2* _toWaveFunc_, Window
 
     for (uint32_t i = 0u; i < _size; i++)
     {
-        float x = (_toOriginVertex + i)->xIndex();
-        float y = (_toOriginVertex + i)->yIndex();
+        uint32_t x = (_toOriginVertex + i)->xIndex();
+        uint32_t y = (_toOriginVertex + i)->yIndex();
 
         float prob = _toWaveFunc->prob(x, y);
 
