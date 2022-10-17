@@ -18,8 +18,6 @@ int main(int argc, char* args[])
     playground::testVideo();
     playground::testImage();
 
-    Window window = Window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT);
-
     Base      xBase = Base(-1, SIZE_X, 1) ;
     Base      yBase = Base(-1, SIZE_Y, 1) ;
     Basis2    basis = Basis2(xBase, yBase);
@@ -29,10 +27,15 @@ int main(int argc, char* args[])
     Vertex    vertices[SIZE_X][SIZE_Y]    ;
 
     psi.setValues(&probAmps[0][0]);
-    psi.normalize(               );
+    psi.normalize(               );                                     // set and norm
 
-    DiracData  data  = DiracData (&psi);
-    DiracPanel dirac = DiracPanel(&vertices[0][0], &window, &data);
+    Window     window = Window(
+        WINDOW_TITLE ,
+        WINDOW_WIDTH ,
+        WINDOW_HEIGHT
+    )                                                              ;
+    DiracData  data   = DiracData (&psi)                           ;
+    DiracPanel dirac  = DiracPanel(&vertices[0][0], &window, &data);
                                                                         // simulation parameters:
     float initX = 0.0              ;                                    // * initial x postition
     float initY = 0.0              ;                                    // * initial x postition
