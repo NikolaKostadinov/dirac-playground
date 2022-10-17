@@ -1,9 +1,13 @@
 #pragma once
 
 #include "playgroundparams.h"
-#include "dirac_panel.hpp"
+//#include "dirac_panel.hpp"
+#include "window.hpp"
 
+#include "../include/Dirac/wavefunc2.hpp"
 #include "../include/SDL2/SDL.h"
+
+class DiracPanel;
 
 class Vertex
 {
@@ -27,6 +31,7 @@ class Vertex
         int      yCoord();
         
         Complex  value(DiracPanel* _toDirac_);
+        float    prob();
 
     private:
 
