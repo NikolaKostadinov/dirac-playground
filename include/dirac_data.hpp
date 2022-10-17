@@ -11,10 +11,13 @@ class DiracData
 
         DiracData(WaveFunc2* _toWaveFunc_);
 
+        void setMax(float _max_      );
         void evolve(float _deltaTime_);
 
-        Complex probAmp(uint32_t _xIndex_, uint32_t _yIndex_);
-        float   prob   (uint32_t _xIndex_, uint32_t _yIndex_);
+        uint32_t size   (                                  );
+        Complex  probAmp(uint32_t _index_, uint32_t _jndex_);
+        float    prob   (uint32_t _index_, uint32_t _jndex_);
+        float    max    (                                  );
 
     private:
 

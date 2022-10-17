@@ -2,43 +2,49 @@
 
 DiracPanel::DiracPanel()
 {
-    _size           = 0u           ;
     _toOriginVertex = new Vertex   ;
-    _toWaveFunc     = new WaveFunc2;
     _toWindow       = NULL         ;
-    _maxProb        = 0.0F         ;
+    _toDiracData    = new DiracData;
 }
 
 DiracPanel::~DiracPanel()
 {
-    delete _toWaveFunc;
+    delete _toDiracData;
     
-    for (uint32_t i = _size - 1u; i >= 0; i--)
-        delete (_toOriginVertex + i);
+    for (uint32_t i = size() - 1u; i >= 0; i--)
+        delete (_toOriginVertex  + i);
 }
 
-DiracPanel::DiracPanel(Vertex* _toOriginVertex_, WaveFunc2* _toWaveFunc_, Window* _toWindow_)
+DiracPanel::DiracPanel(Vertex* _toOriginVertex_, Window* _toWindow_, DiracData* _toDiracData_)
 {
-    _size           = _toWaveFunc_->size();
-    _toOriginVertex = _toOriginVertex_    ;
-    _toWaveFunc     = _toWaveFunc_        ;
-    _toWindow       = _toWindow_          ;
-    _maxProb        = 0.0F                ;
+    _toOriginVertex = _toOriginVertex_;
+    _toWindow       = _toWindow_      ;
+    _toDiracData    = _toDiracData_   ;
+}
 
-    for (uint32_t i = 0u; i < _size; i++)
-    {
-        uint32_t x = (_toOriginVertex + i)->xIndex();
-        uint32_t y = (_toOriginVertex + i)->yIndex();
-
-        float prob = _toWaveFunc->prob(x, y);
-
-        if (_maxProb < prob)
-            _maxProb = prob;
-    }
+void DiracPanel::evolve(float _deltaTime_)
+{
+    _toDiracData->evolve(_deltaTime_);
 }
 
 void DiracPanel::render()
 {
-    for (uint32_t i = 0u;  i < _size;  i++)
-        (_toOriginVertex + i)->render(this);
+    SDL_Renderer* renderer = _toWindow->renderer();
+
+    for (uint32_t i = 0u;  i < size(); i++)
+    {
+        Vertex* thisVertex = _toOriginVertex + i  ;
+        thisVertex->render(_toDiracData, renderer);
+
+        float thisProb = thisVertex->prob(_toDiracData);
+
+        if (_toDiracData->max() < thisProb)
+            _toDiracData->setMax( thisProb);
+
+    }
+}
+
+uint32_t DiracPanel::size()
+{
+    return _toDiracData->size();
 }

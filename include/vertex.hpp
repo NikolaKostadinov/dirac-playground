@@ -1,13 +1,11 @@
 #pragma once
 
 #include "playgroundparams.h"
-//#include "dirac_panel.hpp"
 #include "window.hpp"
+#include "dirac_data.hpp"
 
 #include "../include/Dirac/wavefunc2.hpp"
 #include "../include/SDL2/SDL.h"
-
-class DiracPanel;
 
 class Vertex
 {
@@ -16,12 +14,12 @@ class Vertex
         Vertex();
         ~Vertex();
 
-        Vertex(
-            uint32_t _x_,
-            uint32_t _y_
-        );
+        Vertex(uint32_t _index_, uint32_t _jndex_);
         
-        void render(DiracPanel* _toDirac_);
+        void render(
+            DiracData*   _toDiracData_,
+            SDL_Renderer* _toRenderer_
+        );
 
         uint32_t xIndex();
         uint32_t yIndex();
@@ -30,8 +28,8 @@ class Vertex
         int      xCoord();
         int      yCoord();
         
-        Complex  value(DiracPanel* _toDirac_);
-        float    prob();
+        Complex  probAmp(DiracData* _toDiracData_);
+        float    prob   (DiracData* _toDiracData_);
 
     private:
 

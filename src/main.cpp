@@ -10,6 +10,7 @@
 #include "../include/playgroundtest.h"
 #include "../include/window.hpp"
 #include "../include/vertex.hpp"
+#include "../include/dirac_data.hpp"
 #include "../include/dirac_panel.hpp"
 
 int main(int argc, char* args[])
@@ -30,16 +31,23 @@ int main(int argc, char* args[])
     psi.setValues(&probAmps[0][0]);
     psi.normalize();
 
-    DiracPanel dirac = DiracPanel(&vertices[0][0], &psi, &window);
+    DiracData  data  = DiracData (&psi);
+    DiracPanel dirac = DiracPanel(&vertices[0][0], &window, &data);
 
+    float initX = 0.1                                                                   ;
+    float initY = 0.2                                                                   ;
+    float div   = 0.2                                                                   ;
+    float xMntm = 10000000                                                              ;
+    float yMntm = 0.0                                                                   ;
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
-            float x = xBase.x(i);
-            float y = yBase.x(j);
 
-            probAmps[i][j] = Complex(sqrt(x*x + y*y));
-            vertices[i][j] = Vertex (i, j, &dirac);
+            float x = xBase.x(i) - initX;
+            float y = yBase.x(j) - initY;
+
+            probAmps[i][j] = Complex(exp((-x*x-y*y) / div)) * cis(xMntm * x + yMntm * y);
+            vertices[i][j] = Vertex (i, j)                                              ;
         }
 
     SDL_Event event;
@@ -51,8 +59,8 @@ int main(int argc, char* args[])
 
         window.clear()  ;
           
-        psi.evolve(4)   ;
-        dirac.render()  ;
+        dirac.evolve(4) ;
+        dirac.render( ) ;
 
         window.display();
     }

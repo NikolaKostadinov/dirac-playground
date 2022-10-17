@@ -2,13 +2,12 @@
 
 #include "vertex.hpp"
 #include "window.hpp"
+#include "dirac_data.hpp"
 
 #include "../include/Dirac/wavefunc2.hpp"
 
 class DiracPanel
 {
-    friend class Vertex;
-
     public:
 
         DiracPanel();
@@ -16,17 +15,18 @@ class DiracPanel
 
         DiracPanel(
             Vertex*    _toOriginVertex_,
-            WaveFunc2* _toWaveFunc_    ,
-            Window*    _toWindow_
+            Window*    _toWindow_      ,
+            DiracData* _toDiracData_
         );
 
-        void render();
+        void evolve(float _deltaTime_);
+        void render(                 );
+
+        uint32_t size();
 
     private:
 
-        uint32_t   _size          ;
         Vertex*    _toOriginVertex;
-        WaveFunc2* _toWaveFunc    ;
         Window*    _toWindow      ;
-        float      _maxProb       ;
+        DiracData* _toDiracData   ;
 };
