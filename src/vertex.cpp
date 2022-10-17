@@ -2,26 +2,24 @@
 
 Vertex::Vertex()
 {
-    _xIndex       = 0u            ;
-    _yIndex       = 0u            ;
-    _toDiracPanel = new DiracPanel;
+    _xIndex = 0u;
+    _yIndex = 0u;
 }
 
 Vertex::~Vertex()
 {
-    delete _toDiracPanel;
+
 }
 
-Vertex::Vertex(uint32_t _x_, uint32_t _y_, DiracPanel* _toDiracPanel_)
+Vertex::Vertex(uint32_t _x_, uint32_t _y_)
 {
-    _xIndex       = _x_           ;
-    _yIndex       = _y_           ;
-    _toDiracPanel = _toDiracPanel_;
+    _xIndex = _x_;
+    _yIndex = _y_;
 }
 
-void Vertex::render()
+void Vertex::render(DiracPanel* _toDirac_)
 {
-    SDL_Renderer* renderer = _toDiracPanel->_toWindow->renderer();
+    SDL_Renderer* renderer = _toDirac_->_toWindow->renderer();
     
     SDL_Rect* block = new SDL_Rect;
     block->x        = xCoord()    ;
@@ -29,8 +27,8 @@ void Vertex::render()
     block->w        = dx()        ;
     block->h        = dy()        ;
 
-    float   prob  = value().conjSq();
-    uint8_t green = 255 * prob / _toDiracPanel->_maxProb;
+    float   prob  = value(_toDirac_).conjSq();
+    uint8_t green = 255 * prob / _toDirac_->_maxProb;
 
     SDL_SetRenderDrawColor(renderer, 0, green, 0, 255);
     SDL_RenderFillRect(renderer, block);
@@ -68,7 +66,7 @@ int Vertex::yCoord()
     return (int) _yIndex * dy() + SIM_YPOS;
 }
 
-Complex Vertex::value()
+Complex Vertex::value(DiracPanel* _toDirac_)
 {
-    return _toDiracPanel->_toWaveFunc->value(_xIndex, _yIndex);
+    return _toDirac_->_toWaveFunc->value(_xIndex, _yIndex);
 }
