@@ -1,4 +1,4 @@
-#define SDL_MAIN_HANDLED
+#define SDL_MAIN_HANDLED                                                // windows stuff
 
 #include "../include/Dirac/dirac.h"
 #include "../include/SDL2/SDL.h"
@@ -29,16 +29,17 @@ int main(int argc, char* args[])
     Vertex    vertices[SIZE_X][SIZE_Y]    ;
 
     psi.setValues(&probAmps[0][0]);
-    psi.normalize();
+    psi.normalize(               );
 
     DiracData  data  = DiracData (&psi);
     DiracPanel dirac = DiracPanel(&vertices[0][0], &window, &data);
-
-    float initX = 0.1                                                                   ;
-    float initY = 0.2                                                                   ;
-    float div   = 0.2                                                                   ;
-    float xMntm = 10000000                                                              ;
-    float yMntm = 0.0                                                                   ;
+                                                                        // simulation parameters:
+    float initX = 0.0              ;                                    // * initial x postition
+    float initY = 0.0              ;                                    // * initial x postition
+    float div   = 0.1              ;                                    // * diviation of probability
+    float xMntm = 1.0              ;                                    // * x momentum
+    float yMntm = 2.0              ;                                    // * y momentum
+    float dt    = 8.0              ;                                    // * time steps
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
@@ -53,18 +54,18 @@ int main(int argc, char* args[])
     SDL_Event event;
     while (window.isRunning)
     {
-        while (SDL_PollEvent(&event))
+        while ( SDL_PollEvent(&event) )
             if (event.type == SDL_QUIT)
                 window.cleanUp();
 
         window.clear()  ;
           
-        dirac.evolve(4) ;
-        dirac.render( ) ;
+        dirac.evolve(dt);                                               // solving the cat equation
+        dirac.render(  );                                               // let me see the wave-particle
 
         window.display();
     }
 
-    SDL_Quit();
+    SDL_Quit();                                                         // goodbye
     return 0;
 }
