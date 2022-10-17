@@ -61,7 +61,7 @@ int main(int argc, char* args[])
             if (event.type == SDL_QUIT)
                 window.cleanUp();
 
-        window.clear()  ;
+        window.clear(  );
           
         dirac.evolve(dt);                                               // solving the cat equation
         dirac.render(  );                                               // let me see the wave-particle
