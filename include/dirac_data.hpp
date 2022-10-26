@@ -3,6 +3,8 @@
 #include "../include/Dirac/scalar2.hpp"
 #include "../include/Dirac/wavefunc2.hpp"
 
+#include <iostream>
+
 class DiracData
 {
     public:
