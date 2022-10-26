@@ -1,9 +1,10 @@
 #pragma once
 
+#include "exceptions.h"
 #include "base.hpp"
 #include "basis2.hpp"
 #include "complex.hpp"
-#include "exceptions.h"
+#include <vector>
 
 template <class T>
 class Field2
@@ -13,23 +14,24 @@ class Field2
         Field2();
         virtual ~Field2();
 
-        Field2(Basis2  _basis_  );
+        Field2(Basis2    _basis_);
         Field2(Basis2* _toBasis_);
 
         void setValues(T* _address_);
 
-        unsigned int  size();
-        unsigned int xSize();
-        unsigned int ySize();
-        Basis2* toBasis();
-        Basis2  basis  ();
-        T* address(unsigned int _index_ = 0U, unsigned int _jndex_ = 0U);
-        T  value  (unsigned int _index_     , unsigned int _jndex_     );
+        uint32_t  size  ();
+        uint32_t xSize  ();
+        uint32_t ySize  ();
+        Basis2*  toBasis();
+        Basis2   basis  ();
+        
+        T* address(uint32_t _index_ = 0u, uint32_t _jndex_ = 0u);
+        T  value  (uint32_t _index_     , uint32_t _jndex_     );
 
     protected:
 
-        unsigned int _xSize;
-        unsigned int _ySize;
-        Basis2* _toBasis;
-        T* _originAddress;
+        uint32_t _xSize        ;
+        uint32_t _ySize        ;
+        Basis2*  _toBasis      ;
+        T*       _originAddress;
 };

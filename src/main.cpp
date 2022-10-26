@@ -21,13 +21,15 @@ int main(int argc, char* args[])
     Base      xBase = Base(-1, SIZE_X, 1) ;
     Base      yBase = Base(-1, SIZE_Y, 1) ;
     Basis2    basis = Basis2(xBase, yBase);
+    Scalar2   uFld  = Scalar2(basis)      ;
     WaveFunc2 psi   = WaveFunc2(basis)    ;
 
     Complex   probAmps[SIZE_X][SIZE_Y]    ;
+    float     ptnlVals[SIZE_X][SIZE_Y]    ;
     Vertex    vertices[SIZE_X][SIZE_Y]    ;
 
-    psi.setValues(&probAmps[0][0]);
-    psi.normalize(               );                                     // set and norm
+    psi.setNormValues(&probAmps[0][0]);
+    uFld.setValues(&ptnlVals[0][0])   ;
 
     Window     window = Window(
         WINDOW_TITLE ,
@@ -50,6 +52,7 @@ int main(int argc, char* args[])
             float x = xBase.x(i) - initX;
             float y = yBase.x(j) - initY;
 
+            ptnlVals[i][j] = 0.0f                                                       ;
             probAmps[i][j] = Complex(exp((-x*x-y*y) / div)) * cis(xMntm * x + yMntm * y);
             vertices[i][j] = Vertex (i, j)                                              ;
         }
@@ -61,10 +64,10 @@ int main(int argc, char* args[])
             if (event.type == SDL_QUIT)
                 window.cleanUp();
 
-        window.clear(  );
+        window.clear();
           
-        dirac.evolve(dt);                                               // solving the cat equation
-        dirac.render(  );                                               // let me see the wave-particle
+        dirac.evolve(dt, uFld);                                               // solving the cat equation
+        dirac.render(        );                                               // let me see the wave-particle
 
         window.display();
     }
