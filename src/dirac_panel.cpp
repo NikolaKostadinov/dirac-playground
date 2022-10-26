@@ -22,9 +22,9 @@ DiracPanel::DiracPanel(Vertex* _toOriginVertex_, Window* _toWindow_, DiracData* 
     _toDiracData    = _toDiracData_   ;
 }
 
-void DiracPanel::evolve(float _deltaTime_)
+void DiracPanel::evolve(float _deltaTime_, Scalar2* _toPotential_)
 {
-    _toDiracData->evolve(_deltaTime_);
+    _toDiracData->evolve(_deltaTime_, _toPotential_);
 }
 
 void DiracPanel::render()

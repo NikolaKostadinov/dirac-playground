@@ -31,9 +31,9 @@ void DiracData::setMax(float _max_)
     _maxProb = _max_;
 }
 
-void DiracData::evolve(float _deltaTime_)
+void DiracData::evolve(float _deltaTime_, Scalar2* _toPotential_)
 {
-    _toWaveFunc->evolve(_deltaTime_);
+    _toWaveFunc->evolve(_deltaTime_, _toPotential_);
 }
 
 uint32_t DiracData::size()

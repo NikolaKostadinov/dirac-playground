@@ -66,8 +66,8 @@ int main(int argc, char* args[])
 
         window.clear();
           
-        dirac.evolve(dt, uFld);                                               // solving the cat equation
-        dirac.render(        );                                               // let me see the wave-particle
+        dirac.evolve(dt, &uFld);                                        // solving the cat equation
+        dirac.render(         );                                        // let me see the wave-particle
 
         window.display();
     }
