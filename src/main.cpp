@@ -27,10 +27,7 @@ int main(int argc, char* args[])
     Complex   probAmps[SIZE_X][SIZE_Y]         ;
     float     ptnlVals[SIZE_X][SIZE_Y]         ;
     Vertex    vertices[SIZE_X][SIZE_Y]         ;
-
-    psi->setNormValues(&probAmps[0][0]);
-    uFld->setValues(&ptnlVals[0][0])   ;
-
+    
     Window     window = Window(
         WINDOW_TITLE ,
         WINDOW_WIDTH ,
@@ -56,6 +53,9 @@ int main(int argc, char* args[])
             probAmps[i][j] = Complex(exp((-x*x-y*y) / div)) * cis(xMntm * x + yMntm * y);
             vertices[i][j] = Vertex (i, j)                                              ;
         }
+
+    psi->setNormValues(&probAmps[0][0]);
+    uFld->setValues(&ptnlVals[0][0])   ;
 
     SDL_Event event;
     while (window.isRunning)
