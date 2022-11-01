@@ -3,7 +3,7 @@
 #include "griddy_params.h"
 #include "color.h"
 
-#include "../include/SDL2/SDL.h"
+#include "./SDL2/SDL.h"
 
 namespace GRIDDY
 {

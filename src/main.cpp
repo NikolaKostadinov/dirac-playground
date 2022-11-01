@@ -21,8 +21,8 @@ int main(int argc, char* args[])
     const float    MOMENTUM_Y    = 2.0f              ;
     const float    DT            = 8.0f              ;
 
-    Base       xBase = Base(-1, SIZE_X, 1)     ;
-    Base       yBase = Base(-1, SIZE_Y, 1)     ;
+    Base       xBase =     Base( -1, SIZE_X, 1);
+    Base       yBase =     Base( -1, SIZE_Y, 1);
     Basis2*    basis = new Basis2(xBase, yBase);
     WaveFunc2* psi   = new WaveFunc2(basis)    ;
 
@@ -61,7 +61,7 @@ int main(int argc, char* args[])
 
         psi->evolve(DT);
         grid.render(  );
-        
+
         window.display();
     }
 

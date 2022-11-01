@@ -4,7 +4,7 @@
 #include "vertex.hpp"
 #include "window.hpp"
 
-#include "../include/SDL2/SDL.h"
+#include "./SDL2/SDL.h"
 
 namespace GRIDDY
 {
