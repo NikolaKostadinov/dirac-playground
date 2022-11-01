@@ -10,21 +10,25 @@
 int main(int argc, char* args[])
 {
     const char*    WINDOW_TITLE  = "Dirac Playground";
-    const uint32_t WINDOW_WIDTH  = 720u              ;
-    const uint32_t WINDOW_HEIGHT = 720u              ;
-    const uint32_t SIZE_X        = 10u               ;
-    const uint32_t SIZE_Y        = 10u               ;
-    const float    INIT_X        = 0.0f              ;
-    const float    INIT_Y        = 0.0f              ;
-    const float    DIV           = 0.1f              ;
-    const float    MOMENTUM_X    = 1.0f              ;
-    const float    MOMENTUM_Y    = 2.0f              ;
-    const float    DT            = 8.0f              ;
+    const uint32_t WINDOW_WIDTH  =  720u             ;
+    const uint32_t WINDOW_HEIGHT =  720u             ;
+    const uint32_t SIZE_X        =  36u              ;
+    const uint32_t SIZE_Y        =  36u              ;
+    const float    START_X       = -30.0f            ;
+    const float    END_X         =  30.0f            ;
+    const float    START_Y       = -30.0f            ;
+    const float    END_Y         =  30.0f            ;
+    const float    INIT_X        =  0.0f             ;
+    const float    INIT_Y        =  0.0f             ;
+    const float    DIV           =  0.1f             ;
+    const float    MOMENTUM_X    =  1000000000000.0f ;
+    const float    MOMENTUM_Y    =  0.0f             ;
+    const float    DT            =  0.2f             ;
 
-    Base       xBase =     Base( -1, SIZE_X, 1);
-    Base       yBase =     Base( -1, SIZE_Y, 1);
-    Basis2*    basis = new Basis2(xBase, yBase);
-    WaveFunc2* psi   = new WaveFunc2(basis)    ;
+    Base       xBase = Base(START_X, SIZE_X, END_X);
+    Base       yBase = Base(START_Y, SIZE_Y, END_Y);
+    Basis2*    basis = new Basis2(xBase, yBase)    ;
+    WaveFunc2* psi   = new WaveFunc2(basis)        ;
 
     Complex        probAmps[SIZE_X][SIZE_Y];
     griddy::Vertex vertices[SIZE_X][SIZE_Y];
@@ -35,7 +39,20 @@ int main(int argc, char* args[])
         WINDOW_HEIGHT
     );
 
-    griddy::Grid grid = griddy::Grid(&window);
+    griddy::Grid     grid = griddy::Grid(&window);
+    SDL_Rect     rectGrid = SDL_Rect();
+    rectGrid.x = 0;
+    rectGrid.y = 0;
+    rectGrid.w = WINDOW_WIDTH;
+    rectGrid.h = WINDOW_HEIGHT;
+
+    grid.setVertices(&vertices[0][0]);
+    grid.setPosition(rectGrid);
+    grid.setSize(SIZE_X, SIZE_Y);
+
+    psi->setValues(&probAmps[0][0]);
+    psi->setNorm(255.0f);
+    psi->setMass(1.0f);
 
     
     for (int i = 0; i < SIZE_X; i++)
@@ -44,11 +61,9 @@ int main(int argc, char* args[])
             float x = xBase.x(i) - INIT_X;
             float y = yBase.x(j) - INIT_Y;
 
-            vertices[i][j] = griddy::Vertex(i, j);
             probAmps[i][j] = Complex(exp((-x*x-y*y) / DIV)) * cis(MOMENTUM_X * x + MOMENTUM_Y * y);
+            vertices[i][j] = griddy::Vertex(i, j);
         }
-
-    psi->setValues(&probAmps[0][0]);
 
     SDL_Event event;
     while (window.isRunning)
@@ -60,6 +75,13 @@ int main(int argc, char* args[])
         window.clear();
 
         psi->evolve(DT);
+        for (int i = 0; i < SIZE_X; i++)
+            for (int j = 0; j < SIZE_Y; j++)
+            {
+                float thisProb = psi->prob(i, j);
+                griddy::color thisColor = griddy::Color(0x00, thisProb, 0x00);
+                vertices[i][j].setColor(thisColor);
+            }
         grid.render(  );
 
         window.display();
