@@ -39,11 +39,12 @@ int main(int argc, char* args[])
         WINDOW_HEIGHT
     );
 
-    griddy::Grid     grid = griddy::Grid(&window);
-    SDL_Rect     rectGrid = SDL_Rect();
-    rectGrid.x = 0;
-    rectGrid.y = 0;
-    rectGrid.w = WINDOW_WIDTH;
+    griddy::Grid grid = griddy::Grid(&window);
+
+    SDL_Rect rectGrid = SDL_Rect();
+    rectGrid.x = 0            ;
+    rectGrid.y = 0            ;
+    rectGrid.w = WINDOW_WIDTH ;
     rectGrid.h = WINDOW_HEIGHT;
 
     grid.setVertices(&vertices[0][0]);
@@ -75,6 +76,7 @@ int main(int argc, char* args[])
         window.clear();
 
         psi->evolve(DT);
+        // THIS SECTION IS NOT OPTIMAL
         for (int i = 0; i < SIZE_X; i++)
             for (int j = 0; j < SIZE_Y; j++)
             {
@@ -82,7 +84,8 @@ int main(int argc, char* args[])
                 griddy::color thisColor = griddy::Color(0x00, thisProb, 0x00);
                 vertices[i][j].setColor(thisColor);
             }
-        grid.render(  );
+        // END OF SECTION
+        grid.render();
 
         window.display();
     }
