@@ -1,6 +1,6 @@
 #pragma once
 
-#include "exceptions.h"
+#include "engine_exceptions.h"
 
 class Base
 {
@@ -21,7 +21,7 @@ class Base
         float    dx    ();
         float    length();
 
-        float x(uint32_t _index_);
+        float    x(uint32_t _index_);
 
     private:
 

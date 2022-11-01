@@ -1,7 +1,7 @@
 #pragma once
 
+#include "engine_exceptions.h"
 #include "base.hpp"
-#include "exceptions.h"
 
 class Basis2
 {
@@ -34,11 +34,14 @@ class Basis2
         float zLength();
 
         float x(uint32_t _index_);
-        float y(uint32_t _index_);
-        float z(uint32_t _index_);
+        float y(uint32_t _jndex_);
+        float z(uint32_t _kndex_);
 
     protected:
 
         Base* _toX;
         Base* _toY;
 };
+
+Basis2 SqrBasis2(Base    _base_);
+Basis2 SqrBasis2(Base* _toBase_);

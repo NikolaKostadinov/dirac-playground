@@ -1,6 +1,0 @@
-[submodule "dirac"]
-	path = dirac
-	url = https://github.com/NikolaKostadinov/dirac.git
-[submodule "SDL"]
-	path = SDL
-	url = https://github.com/libsdl-org/SDL

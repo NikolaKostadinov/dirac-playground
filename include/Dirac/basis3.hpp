@@ -1,8 +1,8 @@
 #pragma once
 
+#include "engine_exceptions.h"
 #include "base.hpp"
 #include "basis2.hpp"
-#include "exceptions.h"
 
 class Basis3 : public Basis2
 {
@@ -24,9 +24,12 @@ class Basis3 : public Basis2
 
         float zLength();
 
-        float z(uint32_t _index_);
+        float z(uint32_t _kndex_);
 
     protected:
 
         Base* _toZ;
 };
+
+Basis3 CubeBasis3(Base    _base);
+Basis3 CubeBasis3(Base* _toBase);

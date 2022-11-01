@@ -2,6 +2,7 @@
 
 #include "complex.hpp"
 #include "spinor.hpp"
+
 #include <string>
 
 class Bispinor
@@ -23,13 +24,13 @@ class Bispinor
         Bispinor operator*(Bispinor _other_);
         Bispinor operator/(Bispinor _other_);
 
-        Spinor  positive();
-        Spinor  negative();
-        Complex posUp   ();
-        Complex posDown ();
-        Complex negUp   ();
-        Complex negDown ();
-        float   prob    ();
+        Spinor   positive();
+        Spinor   negative();
+        Complex  posUp   ();
+        Complex  posDown ();
+        Complex  negUp   ();
+        Complex  negDown ();
+        float    prob    ();
 
         std::string string();
 

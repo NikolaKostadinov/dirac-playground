@@ -1,8 +1,9 @@
 #pragma once
 
-#include "exceptions.h"
+#include "engine_exceptions.h"
 #include "base.hpp"
 #include "complex.hpp"
+
 #include <vector>
 
 template <class T>
@@ -16,12 +17,12 @@ class Field1
         Field1(Base  _basis_  );
         Field1(Base* _toBasis_);
 
-        void setValues(T* _address_);
-        void setValue (T  _value_  , uint32_t _index_);
+        void     setValues(T* _address_);
 
-        uint32_t size                        ();
-        Base*    toBase                      ();
-        Base     base                        ();
+        uint32_t size  ();
+        Base*    toBase();
+        Base     base  ();
+
         T*       address(uint32_t _index_ = 0u);
         T        value  (uint32_t _index_     );
 

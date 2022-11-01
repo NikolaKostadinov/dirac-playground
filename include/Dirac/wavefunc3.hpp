@@ -1,13 +1,16 @@
 #pragma once
 
-#include "engineparams.h"
+#include "engine_params.h"
+#include "engine_exceptions.h"
 #include "complex.hpp"
 #include "basis3.hpp"
 #include "field3.hpp"
+#include "wavefunc.hpp"
 #include "scalar3.hpp"
+
 #include <string>
 
-class WaveFunc3 : public Field3<Complex>
+class WaveFunc3 : public Field3<Complex>, public WaveFunc
 {
     public:
 
@@ -17,22 +20,22 @@ class WaveFunc3 : public Field3<Complex>
         WaveFunc3(Basis3  _basis_  );
         WaveFunc3(Basis3* _toBasis_);
 
-        void setMass      (float    _mass_   );
-        void setNormValues(Complex* _address_);
+        void    evolve (float _dt_   = DEFAULT_DT            );
+        void    evolve (float _dt_   , Scalar3    _potential_);
+        void    evolve (float _dt_   , Scalar3* _toPotential_);
 
-        void normalize (float _norm_ = NORM)                      ;
-        void evolveFree(float _deltaTime_  )                      ;
-        void evolve    (float _deltaTime_, Scalar3    _potential_);
-        void evolve    (float _deltaTime_, Scalar3* _toPotential_);
+        Complex probAmp(uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        float   prob   (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        float   prob   (                                                      bool _isNormed_ = DEFAULT_IS_NORMED);
 
-        Complex probAmp(uint32_t _index_, uint32_t _jndex_, uint32_t _kindex_);
-        float   prob   (uint32_t _index_, uint32_t _jndex_, uint32_t _kindex_);
-        
-        float totalProb();
+        Complex ddx    (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        Complex ddy    (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        Complex ddz    (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        Complex grad   (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        Complex d2dx2  (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        Complex d2dy2  (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        Complex d2dz2  (uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
+        Complex laplace(uint32_t _index_, uint32_t _jndex_, uint32_t _kndex_, bool _isNormed_ = DEFAULT_IS_NORMED);
 
         std::string string();
-    
-    protected:
-
-        float _mass;
 };

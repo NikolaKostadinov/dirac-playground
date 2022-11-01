@@ -6,13 +6,6 @@
 #include <iostream>
 #include <cmath>
 
-#include "../include/playgroundparams.h"
-#include "../include/playgroundtest.h"
-#include "../include/window.hpp"
-#include "../include/vertex.hpp"
-#include "../include/dirac_data.hpp"
-#include "../include/dirac_panel.hpp"
-
 int main(int argc, char* args[])
 {
     playground::testVideo();

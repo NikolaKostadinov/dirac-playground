@@ -1,6 +1,7 @@
 #pragma once
 
 #include "complex.hpp"
+
 #include <string>
 
 class Spinor
@@ -12,15 +13,15 @@ class Spinor
 
         Spinor(Complex _up_, Complex _down_);
 
-        void scale(float _factor_);
+        void    scale(float _factor_);
 
-        Spinor operator+();
-        Spinor operator-();
+        Spinor  operator+();
+        Spinor  operator-();
 
-        Spinor operator+(Spinor _other_);
-        Spinor operator-(Spinor _other_);
-        Spinor operator*(Spinor _other_);
-        Spinor operator/(Spinor _other_);
+        Spinor  operator+(Spinor _other_);
+        Spinor  operator-(Spinor _other_);
+        Spinor  operator*(Spinor _other_);
+        Spinor  operator/(Spinor _other_);
 
         Complex up  ();
         Complex down();
