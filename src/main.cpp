@@ -1,6 +1,7 @@
 #define SDL_MAIN_HANDLED                                                // windows stuff
 
 #include "../include/Dirac/dirac.h"
+#include "../include/Griddy/griddy.h"
 #include "../include/SDL2/SDL.h"
 #include "../include/SDL2/SDL_image.h"
 #include <iostream>
@@ -8,60 +9,59 @@
 
 int main(int argc, char* args[])
 {
-    playground::testVideo();
-    playground::testImage();
+    const char*    WINDOW_TITLE  = "Dirac Playground";
+    const uint32_t WINDOW_WIDTH  = 720u              ;
+    const uint32_t WINDOW_HEIGHT = 720u              ;
+    const uint32_t SIZE_X        = 10u               ;
+    const uint32_t SIZE_Y        = 10u               ;
+    const float    INIT_X        = 0.0f              ;
+    const float    INIT_Y        = 0.0f              ;
+    const float    DIV           = 0.1f              ;
+    const float    MOMENTUM_X    = 1.0f              ;
+    const float    MOMENTUM_Y    = 2.0f              ;
+    const float    DT            = 8.0f              ;
 
     Base       xBase = Base(-1, SIZE_X, 1)     ;
     Base       yBase = Base(-1, SIZE_Y, 1)     ;
     Basis2*    basis = new Basis2(xBase, yBase);
-    Scalar2*   uFld  = new Scalar2(basis)      ;
     WaveFunc2* psi   = new WaveFunc2(basis)    ;
 
-    Complex   probAmps[SIZE_X][SIZE_Y]         ;
-    float     ptnlVals[SIZE_X][SIZE_Y]         ;
-    Vertex    vertices[SIZE_X][SIZE_Y]         ;
+    Complex        probAmps[SIZE_X][SIZE_Y];
+    griddy::Vertex vertices[SIZE_X][SIZE_Y];
     
-    Window     window = Window(
+    griddy::Window window = griddy::Window(
         WINDOW_TITLE ,
         WINDOW_WIDTH ,
         WINDOW_HEIGHT
-    )                                                              ;
-    DiracData  data   = DiracData(psi)                             ;
-    DiracPanel dirac  = DiracPanel(&vertices[0][0], &window, &data);
-                                                                        // simulation parameters:
-    float initX = 0.0f             ;                                    // * initial x postition
-    float initY = 0.0f             ;                                    // * initial x postition
-    float div   = 0.1f             ;                                    // * diviation of probability
-    float xMntm = 1.0f             ;                                    // * x momentum
-    float yMntm = 2.0f             ;                                    // * y momentum
-    float dt    = 8.0f             ;                                    // * time steps
+    );
+
+    griddy::Grid grid = griddy::Grid(&window);
+
+    
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
+            float x = xBase.x(i) - INIT_X;
+            float y = yBase.x(j) - INIT_Y;
 
-            float x = xBase.x(i) - initX;
-            float y = yBase.x(j) - initY;
-
-            ptnlVals[i][j] = 1.0f                                                       ;
-            probAmps[i][j] = Complex(exp((-x*x-y*y) / div)) * cis(xMntm * x + yMntm * y);
-            vertices[i][j] = Vertex (i, j)                                              ;
+            vertices[i][j] = griddy::Vertex(i, j);
+            probAmps[i][j] = Complex(exp((-x*x-y*y) / DIV)) * cis(MOMENTUM_X * x + MOMENTUM_Y * y);
         }
 
-    psi->setNormValues(&probAmps[0][0]);
-    uFld->setValues(&ptnlVals[0][0])   ;
+    psi->setValues(&probAmps[0][0]);
 
     SDL_Event event;
     while (window.isRunning)
     {
         while ( SDL_PollEvent(&event) )
             if (event.type == SDL_QUIT)
-                window.cleanUp();
+                window.destroy();
 
         window.clear();
-          
-        dirac.evolve(dt, uFld);                                         // solving the cat equation
-        dirac.render(        );                                         // let me see the wave-particle
 
+        psi->evolve(DT);
+        grid.render(  );
+        
         window.display();
     }
 
