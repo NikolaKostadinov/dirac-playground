@@ -10,20 +10,20 @@
 int main(int argc, char* args[])
 {
     const char*    WINDOW_TITLE  = "Dirac Playground";
-    const uint32_t WINDOW_WIDTH  =  720u             ;
-    const uint32_t WINDOW_HEIGHT =  720u             ;
-    const uint32_t SIZE_X        =  36u              ;
-    const uint32_t SIZE_Y        =  36u              ;
+    const uint32_t WINDOW_WIDTH  =  1000u            ;
+    const uint32_t WINDOW_HEIGHT =  1000u            ;
+    const uint32_t SIZE_X        =  60u              ;
+    const uint32_t SIZE_Y        =  60u              ;
     const float    START_X       = -30.0f            ;
     const float    END_X         =  30.0f            ;
     const float    START_Y       = -30.0f            ;
     const float    END_Y         =  30.0f            ;
     const float    INIT_X        =  0.0f             ;
     const float    INIT_Y        =  0.0f             ;
-    const float    DIV           =  0.1f             ;
-    const float    MOMENTUM_X    =  1000000000000.0f ;
+    const float    DIV           =  6.0f             ;
+    const float    MOMENTUM_X    =  10000000000000.0f;
     const float    MOMENTUM_Y    =  0.0f             ;
-    const float    DT            =  0.2f             ;
+    const float    DT            =  0.02f            ;
 
     Base       xBase = Base(START_X, SIZE_X, END_X);
     Base       yBase = Base(START_Y, SIZE_Y, END_Y);
@@ -52,7 +52,7 @@ int main(int argc, char* args[])
     grid.setSize(SIZE_X, SIZE_Y);
 
     psi->setValues(&probAmps[0][0]);
-    psi->setNorm(255.0f);
+    psi->setNorm(254.0f);
     psi->setMass(1.0f);
 
     
@@ -76,15 +76,14 @@ int main(int argc, char* args[])
         window.clear();
 
         psi->evolve(DT);
-        // THIS SECTION IS NOT OPTIMAL
+        float factor = psi->prbFactor(); 
         for (int i = 0; i < SIZE_X; i++)
             for (int j = 0; j < SIZE_Y; j++)
             {
-                float thisProb = psi->prob(i, j);
+                float thisProb = factor * psi->prob(i, j, false);
                 griddy::color thisColor = griddy::Color(0x00, thisProb, 0x00);
                 vertices[i][j].setColor(thisColor);
             }
-        // END OF SECTION
         grid.render();
 
         window.display();
