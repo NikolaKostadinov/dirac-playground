@@ -43,14 +43,14 @@ int main(int argc, char* args[])
     //u  ->setValues(&potnVals[0][0]);
     psi->setValues(&probAmps[0][0]);
 
-    psi->setNorm(254.0f);
+    psi->setNorm(MAX_COLOR);
     psi->setMass(1.0f);
 
     for (int i = 0; i < SIZE_X; i++)
         for (int j = 0; j < SIZE_Y; j++)
         {
-            float x = xBase.x(i) - INIT_X;
-            float y = yBase.x(j) - INIT_Y;
+            float x = xBase(i) - INIT_X;
+            float y = yBase(j) - INIT_Y;
 
             probAmps[i][j] = Real(exp((-x*x-y*y) / DEV)) * cis(MOMENTUM_X * x + MOMENTUM_Y * y);
             vertices[i][j] = griddy::Vertex(i, j);
