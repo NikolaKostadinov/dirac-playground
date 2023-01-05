@@ -2,7 +2,7 @@
     =================== DIRAC ENGINE ===================
 
     version:    v0.01.00-alpha
-    released:   02.11.2022          (dd.mm.yyyy)
+    released:   05.01.2022          (dd.mm.yyyy)
 
     WARNING:
 
@@ -34,6 +34,10 @@
 
 #pragma  once
 
+#include "engine_params.h"
+
+#include "vector2.hpp"
+#include "vector3.hpp"
 #include "complex.hpp"
 #include "spinor.hpp"
 #include "bispinor.hpp"

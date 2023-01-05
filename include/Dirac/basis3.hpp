@@ -3,6 +3,7 @@
 #include "engine_exceptions.h"
 #include "base.hpp"
 #include "basis2.hpp"
+#include "vector3.hpp"
 
 class Basis3 : public Basis2
 {
@@ -14,22 +15,25 @@ class Basis3 : public Basis2
         Basis3(Base    _xBase_, Base    _yBase_, Base    _zBase_);
         Basis3(Base* _toXBase_, Base* _toYBase_, Base* _toZBase_);
 
-        uint32_t  size();
-        uint32_t zSize();
+        Vector3  operator()(uint32_t _index_,
+                            uint32_t _jndex_,
+                            uint32_t _kndex_) const;
 
-        float zStart();
-        float zEnd  ();
+        uint32_t  size()                      const;
+        uint32_t zSize()                      const;
 
-        float dz();
+        float    zStart ()                    const;
+        float    zEnd   ()                    const;
+        float    zDelta ()                    const;
+        float    zDelta2()                    const;
+        float    zLength()                    const;
+        float    zCoord(uint32_t _kndex_)     const;
 
-        float zLength();
-
-        float z(uint32_t _kndex_);
+        Vector3   coord(uint32_t _index_,
+                        uint32_t _jndex_,
+                        uint32_t _kndex_)     const;
 
     protected:
 
         Base* _toZ;
 };
-
-Basis3 CubeBasis3(Base    _base);
-Basis3 CubeBasis3(Base* _toBase);

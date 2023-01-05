@@ -1,5 +1,6 @@
 #pragma once
 
+#include "engine_params.h"
 #include "complex.hpp"
 
 #include <string>
@@ -13,19 +14,25 @@ class Spinor
 
         Spinor(Complex _up_, Complex _down_);
 
-        void    scale(float _factor_);
+        void    scale    (float _factor_                    );
+        void    shrink   (float _factor_                    );
+        void    normalize(float _norm_ = DEFAULT_SPINOR_NORM);
 
-        Spinor  operator+();
-        Spinor  operator-();
+        Spinor  operator+ (                    ) const;
+        Spinor  operator- (                    ) const;
+        Spinor  operator+ (const Spinor _other_) const;
+        Spinor  operator- (const Spinor _other_) const;
+        Spinor  operator* (const Spinor _other_) const;
+        Spinor  operator/ (const Spinor _other_) const;
+        Spinor& operator+=(const Spinor _other_)      ;
+        Spinor& operator-=(const Spinor _other_)      ;
+        Spinor& operator*=(const Spinor _other_)      ;
+        Spinor& operator/=(const Spinor _other_)      ;
+        bool    operator==(const Spinor _other_) const;
 
-        Spinor  operator+(Spinor _other_);
-        Spinor  operator-(Spinor _other_);
-        Spinor  operator*(Spinor _other_);
-        Spinor  operator/(Spinor _other_);
-
-        Complex up  ();
-        Complex down();
-        float   prob();
+        Complex up  ()     const;
+        Complex down()     const;
+        float   prob()     const;
 
         std::string string();
 

@@ -12,6 +12,6 @@
 #define INIT_X          0.0f
 #define INIT_Y          0.0f
 #define DEV             6.0f
-#define MOMENTUM_X      0.0f
+#define MOMENTUM_X      1000000000.0f
 #define MOMENTUM_Y      0.0f
 #define DT              0.01f

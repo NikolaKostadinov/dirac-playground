@@ -1,7 +1,9 @@
 #define SDL_MAIN_HANDLED                                                // windows stuff
 
 #include "../include/params.h"
+
 #include "../include/Dirac/dirac.h"
+
 #include "../include/Griddy/griddy.h"
 #include "../include/SDL2/SDL.h"
 #include "../include/SDL2/SDL_image.h"
