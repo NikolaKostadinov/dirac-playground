@@ -15,10 +15,10 @@ int main(int argc, char* args[])
     Base       xBase = Base(START_X, SIZE_X, END_X);
     Base       yBase = Base(START_Y, SIZE_Y, END_Y);
     Basis2*    basis = new Basis2(xBase, yBase)    ;
-    //Scalar2*   u     = new Scalar2(basis)          ;
+    Scalar2*   u     = new Scalar2(basis)          ;
     WaveFunc2* psi   = new WaveFunc2(basis)        ;
 
-    //float          potnVals[SIZE_X][SIZE_Y];
+    float          potnVals[SIZE_X][SIZE_Y];
     Complex        probAmps[SIZE_X][SIZE_Y];
     griddy::Vertex vertices[SIZE_X][SIZE_Y];
     
@@ -40,7 +40,7 @@ int main(int argc, char* args[])
     grid.setPosition(rectGrid);
     grid.setSize(SIZE_X, SIZE_Y);
 
-    //u  ->setValues(&potnVals[0][0]);
+    u  ->setValues(&potnVals[0][0]);
     psi->setValues(&probAmps[0][0]);
 
     psi->setNorm(MAX_COLOR);
@@ -53,6 +53,7 @@ int main(int argc, char* args[])
             float y = yBase(j) - INIT_Y;
 
             probAmps[i][j] = Real(exp((-x*x-y*y) / DEV)) * cis(MOMENTUM_X * x + MOMENTUM_Y * y);
+            potnVals[i][j] = 0.5f * (x*x + y*y);
             vertices[i][j] = griddy::Vertex(i, j);
         }
 
@@ -65,7 +66,7 @@ int main(int argc, char* args[])
 
         window.clear();
 
-        psi->evolve(DT);
+        psi->evolve(DT, u);
         float factor = psi->prbFactor(); 
         for (int i = 0; i < SIZE_X; i++)
             for (int j = 0; j < SIZE_Y; j++)
