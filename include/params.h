@@ -9,10 +9,10 @@
 #define END_X           30.0f
 #define START_Y        -30.0f
 #define END_Y           30.0f
-#define INIT_X          20.0f
+#define INIT_X          0.0f
 #define INIT_Y          0.0f
 #define DEV             6.0f
 #define MOMENTUM_X      0.0f
 #define MOMENTUM_Y      0.0f
-#define DT              0.001f
+#define DT              0.01f
 #define MAX_COLOR       0xaa

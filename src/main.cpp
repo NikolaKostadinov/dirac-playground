@@ -5,8 +5,8 @@
 #include "../include/Dirac/dirac.h"
 
 #include "../include/Griddy/griddy.h"
-#include "../include/SDL2/SDL.h"
-#include "../include/SDL2/SDL_image.h"
+#include "../include/Griddy/SDL2/SDL.h"
+#include "../include/Griddy/SDL2/SDL_image.h"
 #include <iostream>
 #include <cmath>
 
@@ -53,7 +53,7 @@ int main(int argc, char* args[])
             float y = yBase(j) - INIT_Y;
 
             probAmps[i][j] = Real(exp((-x*x-y*y) / DEV)) * cis(MOMENTUM_X * x + MOMENTUM_Y * y);
-            potnVals[i][j] = 0.5f * (x*x + y*y);
+            potnVals[i][j] = 0.5f;
             vertices[i][j] = griddy::Vertex(i, j);
         }
 
